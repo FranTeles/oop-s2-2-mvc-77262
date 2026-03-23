@@ -4,30 +4,35 @@ namespace oop_s2_2_mvc_77262.Data
 {
     public static class UserSeed
     {
-        public static async Task SeedAdminUserAsync(IServiceProvider serviceProvider)
+        public static async Task SeedUsersAsync(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            string adminEmail = "admin@test.com";
-            string adminPassword = "Admin123!";
+            // ADMIN
+            await CreateUser(userManager, "admin@test.com", "Admin123!", "Admin");
 
-            var existingUser = await userManager.FindByEmailAsync(adminEmail);
+            // INSPECTOR
+            await CreateUser(userManager, "inspector@test.com", "Admin123!", "Inspector");
 
-            if (existingUser == null)
+            // VIEWER
+            await CreateUser(userManager, "viewer@test.com", "Admin123!", "Viewer");
+        }
+
+        private static async Task CreateUser(UserManager<IdentityUser> userManager, string email, string password, string role)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
             {
-                var adminUser = new IdentityUser
+                user = new IdentityUser
                 {
-                    UserName = adminEmail,
-                    Email = adminEmail,
+                    UserName = email,
+                    Email = email,
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(adminUser, adminPassword);
-
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
-                }
+                await userManager.CreateAsync(user, password);
+                await userManager.AddToRoleAsync(user, role);
             }
         }
     }

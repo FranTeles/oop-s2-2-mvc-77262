@@ -62,7 +62,7 @@ app.Use(async (context, next) =>
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
@@ -71,7 +71,7 @@ using (var scope = app.Services.CreateScope())
 
     SeedData.Initialize(services);
     await RoleSeed.SeedRolesAsync(services);
-    await UserSeed.SeedAdminUserAsync(services);
+    await UserSeed.SeedUsersAsync(services);
 }
 
 app.Run();

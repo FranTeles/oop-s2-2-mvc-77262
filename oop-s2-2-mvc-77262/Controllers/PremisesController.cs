@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using oop_s2_2_mvc_77262.Data;
 using oop_s2_2_mvc_77262.Models;
 using Serilog;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace oop_s2_2_mvc_77262.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Inspector")]
     public class PremisesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -38,6 +35,7 @@ namespace oop_s2_2_mvc_77262.Controllers
 
             var premises = await _context.Premises
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (premises == null)
             {
                 return NotFound();
@@ -47,29 +45,32 @@ namespace oop_s2_2_mvc_77262.Controllers
         }
 
         // GET: Premises/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Premises/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Address,Town,RiskRating")] Premises premises)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(premises);
                 await _context.SaveChangesAsync();
+
                 Log.Information("Premises created. Id: {PremisesId}", premises.Id);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(premises);
         }
 
         // GET: Premises/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,14 +83,14 @@ namespace oop_s2_2_mvc_77262.Controllers
             {
                 return NotFound();
             }
+
             return View(premises);
         }
 
         // POST: Premises/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,Town,RiskRating")] Premises premises)
         {
             if (id != premises.Id)
@@ -103,6 +104,7 @@ namespace oop_s2_2_mvc_77262.Controllers
                 {
                     _context.Update(premises);
                     await _context.SaveChangesAsync();
+
                     Log.Information("Premises updated. Id: {PremisesId}", premises.Id);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -116,12 +118,15 @@ namespace oop_s2_2_mvc_77262.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(premises);
         }
 
         // GET: Premises/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,6 +136,7 @@ namespace oop_s2_2_mvc_77262.Controllers
 
             var premises = await _context.Premises
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (premises == null)
             {
                 return NotFound();
@@ -142,16 +148,20 @@ namespace oop_s2_2_mvc_77262.Controllers
         // POST: Premises/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var premises = await _context.Premises.FindAsync(id);
+
             if (premises != null)
             {
                 _context.Premises.Remove(premises);
             }
 
             await _context.SaveChangesAsync();
+
             Log.Information("Premises deleted. Id: {PremisesId}", id);
+
             return RedirectToAction(nameof(Index));
         }
 
