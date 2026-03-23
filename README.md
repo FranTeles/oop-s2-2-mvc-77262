@@ -1,44 +1,65 @@
-Community Library Desk
-Overview
-This project is a Community Library Desk system built with ASP.NET Core MVC.
+# Food Safety Inspection System
 
-It allows users to manage books, members, and loans in a simple library system.
+## Overview
+This project is a Food Safety Inspection system built with ASP.NET Core MVC.
 
-Features
-CRUD for Books and Members
-Loan and Return system
-Prevents multiple active loans for the same book
-Search books by Title or Author
-Filter by Category and Availability
-Admin role management
-Seeded database with sample data
-Unit tests using xUnit
-CI pipeline with GitHub Actions
-Technologies Used
-ASP.NET Core MVC (.NET 8)
-Entity Framework Core
-SQL Server
-ASP.NET Identity
-xUnit
-GitHub Actions
-How to Run
-Clone the repository
+It allows users to manage premises, inspections, and follow-up actions in a structured and secure way.
+---
 
-Open in Visual Studio
+## Features
 
-Run the following commands:
+- CRUD for Premises, Inspections, and Follow-Ups
+- Role-based access control (Admin, Inspector, Viewer)
+- Dashboard with real-time data and filters
+- Tracks inspections and outcomes (Pass/Fail)
+- Manages follow-ups with status (Open/Closed)
+- Detects overdue follow-ups
+- Seeded database with sample data
+- Logging using Serilog (console and file)
+- Global error handling with friendly error page
+- Unit tests using xUnit
+- CI pipeline with GitHub Actions
 
-Run the project
+---
 
-Default Admin
-Email: admin@library.com
-Password: Admin123!
-Testing
+## Technologies Used
+
+- ASP.NET Core MVC (.NET 8)
+- Entity Framework Core (SQLite)
+- ASP.NET Identity
+- Serilog
+- xUnit
+- GitHub Actions
+
+---
+
+## How to Run
+
+1. Clone the repository
+2. Open in Visual Studio
+3. Run the following commands:
+- Update-Database
+4. Run the project
+
+---
+
+## Default Admin
+
+- Email: admin@library.com  
+- Password: Admin123!
+
+---
+
+## Testing
+
 Run tests using:
+- dotnet test
+  
+---
 
-CI/CD
+## CI/CD
+
 The project includes a GitHub Actions workflow that:
 
-Builds the project
-Runs tests
-Generates coverage reports
+- Builds the project
+- Runs tests
