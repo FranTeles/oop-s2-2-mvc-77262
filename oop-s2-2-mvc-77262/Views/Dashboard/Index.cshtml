@@ -1,0 +1,68 @@
+﻿@model oop_s2_2_mvc_77262.ViewModels.DashboardViewModel
+@using oop_s2_2_mvc_77262.Enums
+
+<h2>Dashboard</h2>
+
+<form method="get" class="mb-4">
+    <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:end;">
+        <div>
+            <label for="townFilter">Town</label>
+            <select name="townFilter" class="form-control">
+                <option value="">All Towns</option>
+                @foreach (var town in Model.Towns)
+                {
+                    if (Model.TownFilter == town)
+                    {
+                        <option value="@town" selected>@town</option>
+                    }
+                    else
+                    {
+                        <option value="@town">@town</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="riskRatingFilter">Risk Rating</label>
+            <select name="riskRatingFilter" class="form-control">
+                <option value="">All Risk Ratings</option>
+                @foreach (var risk in Html.GetEnumSelectList<RiskRating>())
+                {
+                    if (Model.RiskRatingFilter.HasValue && Model.RiskRatingFilter.ToString() == risk.Value)
+                    {
+                        <option value="@risk.Value" selected>@risk.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@risk.Value">@risk.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+        </div>
+    </div>
+</form>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+    <div style="padding:20px; background:#e3f2fd; border-radius:10px; min-width:220px;">
+        <h4>Inspections This Month</h4>
+        <p>@Model.InspectionsThisMonth</p>
+    </div>
+
+    <div style="padding:20px; background:#ffebee; border-radius:10px; min-width:220px;">
+        <h4>Failed Inspections This Month</h4>
+        <p>@Model.FailedInspectionsThisMonth</p>
+    </div>
+
+    <div style="padding:20px; background:#fff3e0; border-radius:10px; min-width:220px;">
+        <h4>Overdue Open Follow-Ups</h4>
+        <p>@Model.OverdueOpenFollowUps</p>
+    </div>
+
+</div>
