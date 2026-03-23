@@ -45,7 +45,7 @@ It allows users to manage premises, inspections, and follow-up actions in a stru
 
 ## Default Admin
 
-- Email: admin@library.com  
+- Email: admin@test.com 
 - Password: Admin123!
 
 ---
