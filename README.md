@@ -2,8 +2,8 @@
 
 ## Overview
 This project is a Food Safety Inspection system built with ASP.NET Core MVC.
-
 It allows users to manage premises, inspections, and follow-up actions in a structured and secure way.
+
 ---
 
 ## Features
