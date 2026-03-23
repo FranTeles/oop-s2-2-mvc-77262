@@ -43,10 +43,19 @@ It allows users to manage premises, inspections, and follow-up actions in a stru
 
 ---
 
-## Default Admin
+## Logins
 
+Default Admin
 - Email: admin@test.com 
 - Password: Admin123!
+
+Inspector
+- inspector@test.com
+- Admin123!
+
+Viewer
+- viewer@test.com
+- Admin123!
 
 ---
 
