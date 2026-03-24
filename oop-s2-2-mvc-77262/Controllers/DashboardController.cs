@@ -8,7 +8,7 @@ using Serilog;
 
 namespace oop_s2_2_mvc_77262.Controllers
 {
-    [Authorize(Roles = "Admin,Inspector,Viewer")]
+    
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
