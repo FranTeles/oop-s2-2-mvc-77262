@@ -50,10 +50,10 @@ jobs:
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
           reportgenerator \
-            -reports:**/coverage.cobertura.xml \
-            -targetdir:coveragereport \
-            -reporttypes:Html \
-            -classfilters:-*Controller;-*View*
+           -reports:**/coverage.cobertura.xml \
+           -targetdir:coveragereport \
+           -reporttypes:Html \
+           "-classfilters:-*Controller;-AspNetCoreGeneratedDocument*"
 
       - name: Upload coverage as build artifact
         uses: actions/upload-artifact@v4
