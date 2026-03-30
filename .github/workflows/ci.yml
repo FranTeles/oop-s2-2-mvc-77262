@@ -52,7 +52,8 @@ jobs:
           reportgenerator \
             -reports:**/coverage.cobertura.xml \
             -targetdir:coveragereport \
-            -reporttypes:Html
+            -reporttypes:Html \
+            -classfilters:-*Controller;-*View*
 
       - name: Upload coverage as build artifact
         uses: actions/upload-artifact@v4
